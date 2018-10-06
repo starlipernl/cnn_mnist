@@ -67,11 +67,13 @@ print(test_labels[8888:8898])
 '''
 
 # creating validation set from training set
-# validation set size: 10k
-valid_images = train_images[50000:]  # last 10k: 50k-60k
-valid_labels = train_labels[50000:]  # last 10k: 50k-60k
-train_images = train_images[:50000]  # first 50k
-train_labels = train_labels[:50000]  # first 50k
+# validation set size:
+valid_set_size = 8000
+split = len(train_images) - valid_set_size
+valid_images = train_images[split:]  # last
+valid_labels = train_labels[split:]  # last
+train_images = train_images[:split]  # first
+train_labels = train_labels[:split]  # first
 
 # printing out shapes of sets
 print("\n##########")
@@ -84,7 +86,7 @@ print("Testing Labels shape: {}".format(test_labels.shape))
 print("\n##########")
 
 ################################################################################
-# HYPERPARAMETERS
+# HYPERPARAMETERS AND DESIGN CHOICES
 NUM_EPOCHS = 20
 BATCH_SIZE = 64
 LEARNING_RATE = 0.001
@@ -153,6 +155,7 @@ model.add(Dense(
 ))
 
 # configure model for training
+# i.e. define loss function, optimizer, training metrics
 model.compile(
     loss=sparse_categorical_crossentropy,
     optimizer=Adam(),
@@ -164,10 +167,10 @@ model.summary()
 ################################################################################
 # callbacks for Save weights, Tensorboard
 # creating a new directory for each run using timestamp
-dir = os.path.join(os.getcwd(), datetime.now().strftime("%d-%m-%Y_%H-%M-%S"))
-history_file = dir + "\cnn.h5"
+folder = os.path.join(os.getcwd(), datetime.now().strftime("%d-%m-%Y_%H-%M-%S"))
+history_file = folder + "\cnn.h5"
 save_callback = ModelCheckpoint(filepath=history_file, verbose=1)
-tb_callback = TensorBoard(log_dir=dir)
+tb_callback = TensorBoard(log_dir=folder)
 
 # train model
 history = model.fit(
