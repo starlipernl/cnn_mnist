@@ -7,7 +7,8 @@ import os
 import csv
 import numpy as np
 
-RESULT_PATH = 'E:/GITHUB/ece542-2018fall/docs/samples/sample_afs/proj03/'
+current_dir = os.getcwd()
+RESULT_PATH = current_dir
 GT_LIST = [1, 9, 2, 3]
 
 
