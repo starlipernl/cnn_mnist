@@ -64,12 +64,12 @@ print("\n##########")
 
 ################################################################################
 # HYPERPARAMETERS AND DESIGN CHOICES
-NUM_EPOCHS = 30
+NUM_EPOCHS = 25
 BATCH_SIZE = 64
 LEARNING_RATE = 0.001
 NUM_NEURONS_IN_DENSE_1 = 256
 DROP_PROB = 0.6
-ACTIV_FN = "sigmoid"
+ACTIV_FN = "relu"
 activation_fn = cnn.get_activ_fn(ACTIV_FN)
 
 ################################################################################
