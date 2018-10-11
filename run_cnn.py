@@ -69,7 +69,7 @@ BATCH_SIZE = 64
 LEARNING_RATE = 0.001
 NUM_NEURONS_IN_DENSE_1 = 256
 DROP_PROB = 0.6
-ACTIV_FN = "relu"
+ACTIV_FN = "sigmoid"
 activation_fn = cnn.get_activ_fn(ACTIV_FN)
 
 ################################################################################
@@ -112,21 +112,25 @@ df.to_csv("mnist.csv", header=None, index=None)
 num_epochs_plot = range(1, len(train_accuracy) + 1)
 
 # Loss curves
+plt.figure(1)
 plt.plot(num_epochs_plot, train_loss, "b", label="Training Loss")
 plt.plot(num_epochs_plot, valid_loss, "r", label="Validation Loss")
 plt.title("Loss Curves_" + ACTIV_FN)
 plt.xlabel("Number of Epochs")
 plt.ylabel("Loss")
 plt.legend()
+plt.savefig('Figures/' + ACTIV_FN + '_loss.png')
 plt.show()
 
 # Accuracy curves
+plt.figure(2)
 plt.plot(num_epochs_plot, train_accuracy, "b", label="Training Accuracy")
 plt.plot(num_epochs_plot, valid_accuracy, "r", label="Validation Accuracy")
 plt.title("Accuracy Curves_" + ACTIV_FN)
 plt.xlabel("Number of Epochs")
 plt.ylabel("Accuracy")
 plt.legend()
+plt.savefig('Figures/' + ACTIV_FN + '_acc.png')
 plt.show()
 
 # Test loss and accuracy
